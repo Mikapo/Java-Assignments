@@ -35,7 +35,7 @@ public class Deque<Item> implements Iterable<Item> {
         if (item == null) {
             throw new IllegalArgumentException();
         }
-        
+
         ++m_size;
 
         if (m_top == null) {
@@ -55,7 +55,7 @@ public class Deque<Item> implements Iterable<Item> {
         if (item == null) {
             throw new IllegalArgumentException();
         }
-        
+
         ++m_size;
 
         if (m_top == null) {
@@ -75,12 +75,15 @@ public class Deque<Item> implements Iterable<Item> {
         if (m_top == null) {
             throw new NoSuchElementException();
         }
-        
+
         --m_size;
 
         Item item = m_top.item;
         m_top = m_top.next;
-        m_top.previous = null;
+
+        if (m_top != null) {
+            m_top.previous = null;
+        }
         return item;
     }
 
@@ -90,7 +93,7 @@ public class Deque<Item> implements Iterable<Item> {
         if (m_end == null) {
             throw new NoSuchElementException();
         }
-        
+
         --m_size;
 
         Item item = m_end.item;
@@ -121,7 +124,7 @@ public class Deque<Item> implements Iterable<Item> {
             if (current_node == null) {
                 throw new NoSuchElementException();
             }
-            
+
             Item item = current_node.item;
             current_node = current_node.next;
             return item;
@@ -151,15 +154,15 @@ public class Deque<Item> implements Iterable<Item> {
         Node previous = null;
     }
 
-    Node m_top = null;
-    Node m_end = null;
-    int m_size = 0;
+    private Node m_top = null;
+    private Node m_end = null;
+    private int m_size = 0;
 
     // unit testing (required)
-   /* public static void main(String[] args) {
+    public static void main(String[] args) {
 
         Deque<Integer> deque = new Deque<>();
-      
+
         deque.addFirst(1);
         deque.addLast(2);
         deque.addFirst(5);
@@ -168,10 +171,10 @@ public class Deque<Item> implements Iterable<Item> {
         deque.removeFirst();
         deque.removeLast();
         System.out.println(deque.size());
-        
-        for(int value : deque)
-            System.out.println(value);
-      
-    }*/
 
+        for (int value : deque) {
+            System.out.println(value);
+        }
+
+    }
 }

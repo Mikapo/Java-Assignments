@@ -8,7 +8,7 @@ import edu.princeton.cs.algs4.StdRandom;
  * @author Mika
  * @param <Item>
  */
-public class RandomizedQueue<Item> implements Iterable {
+public class RandomizedQueue<Item> implements Iterable<Item> {
 
     // construct an empty randomized queue
     public RandomizedQueue() {
@@ -95,7 +95,12 @@ public class RandomizedQueue<Item> implements Iterable {
     private class RandomIterator implements Iterator<Item> {
 
         RandomIterator(Item[] data, int size) {
-            m_data = data;
+
+            m_data = (Item[]) new Object[size];
+            for (int i = 0; i < size; i++) {
+                m_data[i] = data[i];
+            }
+
             m_size = size;
 
             StdRandom.shuffle(m_data);
@@ -125,9 +130,9 @@ public class RandomizedQueue<Item> implements Iterable {
         int m_current = 0;
     }
 
-    Item[] m_data;
-    int m_size = 0;
-    int m_capacity = 1;
+    private Item[] m_data;
+    private int m_size = 0;
+    private int m_capacity = 1;
 
     public static void main(String args[]) {
         RandomizedQueue<Integer> RandomQueue = new RandomizedQueue<>();
@@ -136,13 +141,14 @@ public class RandomizedQueue<Item> implements Iterable {
             RandomQueue.enqueue(i);
         }
 
-        for (Iterator it = RandomQueue.iterator(); it.hasNext();) {
-            Object Item = it.next();
-            System.out.println(Item + " ");
-        }
-            
-       
+        System.out.println(RandomQueue.isEmpty());
+        System.out.println(RandomQueue.size());
+        System.out.println(RandomQueue.sample());
+        System.out.println(RandomQueue.dequeue());
 
+        for (int item : RandomQueue) {
+            System.out.println(item);
+        }
     }
 
 }
